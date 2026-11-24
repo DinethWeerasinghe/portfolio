@@ -1,725 +1,498 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Dineth Portfolio</title>
-	<link rel="icon" type="image/x-icon" href="images/icon.ico">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Dineth Weerasinghe — Associate Data Engineer building data platforms, enterprise applications, integrations and automation solutions.">
+  <meta name="author" content="Dineth Weerasinghe">
+  <meta name="theme-color" content="#0b0d10">
+  <meta property="og:title" content="Dineth Weerasinghe | Data & Software Engineer">
+  <meta property="og:description" content="Data engineering, software development, enterprise integrations and automation.">
+  <meta property="og:type" content="website">
+  <title>Dineth Weerasinghe | Data & Software Engineer</title>
+  <link rel="icon" type="image/x-icon" href="images/icon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    :root {
+      --bg: #0b0d10;
+      --surface: #12161b;
+      --surface-2: #171c22;
+      --line: rgba(255,255,255,.09);
+      --text: #f4f5f6;
+      --muted: #a2aab4;
+      --accent: #ffbd39;
+      --accent-2: #f0a91d;
+      --max: 1160px;
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: "DM Sans", sans-serif; line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    body.menu-open { overflow: hidden; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { font: inherit; }
+    .container { width: min(var(--max), calc(100% - 44px)); margin: auto; }
+    .section { padding: 104px 0; }
+    .section-kicker {
+      color: var(--accent); font-size: .76rem; font-weight: 700;
+      letter-spacing: .18em; text-transform: uppercase; margin: 0 0 12px;
+    }
+    .section-heading { max-width: 720px; margin-bottom: 42px; }
+    .section-heading h2 {
+      font: 700 clamp(2rem, 4vw, 3rem)/1.12 "Space Grotesk", sans-serif;
+      margin: 0 0 16px; letter-spacing: -.04em;
+    }
+    .section-heading p { color: var(--muted); margin: 0; max-width: 650px; }
+    .accent { color: var(--accent); }
+    .muted { color: var(--muted); }
+    .navbar {
+      position: fixed; inset: 0 0 auto; z-index: 1000;
+      background: rgba(11,13,16,.82); border-bottom: 1px solid transparent;
+      backdrop-filter: blur(16px); transition: .25s ease;
+    }
+    .navbar.scrolled { border-color: var(--line); }
+    .nav-inner { min-height: 76px; display: flex; align-items: center; justify-content: space-between; }
+    .brand { font: 700 1.15rem "Space Grotesk", sans-serif; letter-spacing: -.04em; }
+    .brand span { color: var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: 27px; list-style: none; margin: 0; padding: 0; }
+    .nav-links a { color: #c5cbd2; font-size: .9rem; transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .nav-cta { border: 1px solid rgba(255,189,57,.55); padding: 9px 16px; border-radius: 999px; color: var(--accent)!important; }
+    .menu-toggle { display: none; border: 1px solid var(--line); background: var(--surface); color: var(--text); border-radius: 10px; padding: 9px 12px; cursor: pointer; }
+    .hero { min-height: 760px; display: flex; align-items: center; padding: 145px 0 85px; position: relative; overflow: hidden; }
+    .hero:before {
+      content: ""; position: absolute; width: 620px; height: 620px; border-radius: 50%;
+      right: -130px; top: 80px; background: radial-gradient(circle, rgba(255,189,57,.12), transparent 68%);
+      pointer-events: none;
+    }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; align-items: center; gap: 70px; position: relative; }
+    .availability { display: inline-flex; align-items: center; gap: 9px; color: #d4d9df; font-size: .84rem; border: 1px solid var(--line); background: rgba(255,255,255,.025); padding: 8px 13px; border-radius: 999px; margin-bottom: 25px; }
+    .availability:before { content: ""; width: 8px; height: 8px; background: #55cf8b; border-radius: 50%; box-shadow: 0 0 0 5px rgba(85,207,139,.12); }
+    .hero h1 { font: 700 clamp(3rem, 6.2vw, 5.5rem)/.99 "Space Grotesk", sans-serif; letter-spacing: -.065em; margin: 0 0 20px; }
+    .hero h1 span { color: var(--accent); }
+    .hero-role { font: 600 clamp(1.1rem, 2vw, 1.45rem) "Space Grotesk", sans-serif; margin: 0 0 18px; color: #d8dde3; }
+    .hero-copy { color: var(--muted); font-size: 1.05rem; max-width: 610px; margin: 0 0 30px; }
+    .button-row { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 13px 20px; border-radius: 10px; font-weight: 700; font-size: .92rem; border: 1px solid transparent; transition: .2s ease; cursor: pointer; }
+    .btn-primary { background: var(--accent); color: #17130a; }
+    .btn-primary:hover { background: #ffd071; transform: translateY(-2px); }
+    .btn-outline { border-color: rgba(255,255,255,.2); color: var(--text); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+    .hero-socials { display: flex; gap: 18px; margin-top: 34px; }
+    .hero-socials a { color: #9ba4ae; font-size: 1.15rem; transition: .2s; }
+    .hero-socials a:hover { color: var(--accent); transform: translateY(-2px); }
+    .portrait-wrap { position: relative; width: min(100%, 420px); justify-self: center; }
+    .portrait-frame { aspect-ratio: 4/5; border-radius: 190px 190px 24px 24px; overflow: hidden; border: 1px solid rgba(255,189,57,.35); background: linear-gradient(145deg,#29251d,#171b20); position: relative; }
+    .portrait-frame img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .portrait-placeholder { display: none; height: 100%; min-height: 420px; align-items: center; justify-content: center; color: var(--accent); font-size: 5rem; }
+    .portrait-note { position: absolute; bottom: 25px; left: -42px; padding: 15px 18px; border: 1px solid var(--line); border-radius: 13px; background: #171c22; box-shadow: 0 18px 50px rgba(0,0,0,.3); }
+    .portrait-note strong { display: block; font: 700 1.3rem "Space Grotesk"; color: var(--accent); }
+    .portrait-note small { color: var(--muted); }
+    .stats { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(255,255,255,.015); }
+    .stats-grid { display: grid; grid-template-columns: repeat(3,1fr); }
+    .stat { padding: 27px 20px; text-align: center; border-right: 1px solid var(--line); }
+    .stat:last-child { border: 0; }
+    .stat strong { display: block; font: 700 1.45rem "Space Grotesk"; color: var(--accent); }
+    .stat span { color: var(--muted); font-size: .86rem; }
+    .about-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 65px; align-items: start; }
+    .about-card { border: 1px solid var(--line); background: linear-gradient(145deg,var(--surface-2),var(--surface)); border-radius: var(--radius); padding: 30px; }
+    .about-mark { width: 54px; height: 54px; border-radius: 15px; display: grid; place-items: center; background: rgba(255,189,57,.12); color: var(--accent); font-size: 1.4rem; margin-bottom: 22px; }
+    .about-card h3 { font: 600 1.3rem "Space Grotesk"; margin: 0 0 10px; }
+    .about-card p { color: var(--muted); margin: 0; }
+    .about-content p { color: var(--muted); margin: 0 0 17px; }
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px 22px; margin-top: 27px; }
+    .info-item { border-bottom: 1px solid var(--line); padding: 0 0 12px; }
+    .info-item small { display: block; color: #7f8994; margin-bottom: 3px; }
+    .info-item strong { font-size: .92rem; font-weight: 600; overflow-wrap: anywhere; }
+    .timeline { position: relative; max-width: 900px; }
+    .timeline:before { content: ""; position: absolute; left: 9px; top: 8px; bottom: 12px; width: 1px; background: rgba(255,189,57,.3); }
+    .timeline-item { position: relative; padding: 0 0 35px 42px; }
+    .timeline-item:before { content: ""; position: absolute; left: 3px; top: 7px; width: 13px; height: 13px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 5px rgba(255,189,57,.12); }
+    .timeline-card { background: var(--surface); border: 1px solid var(--line); border-radius: 15px; padding: 25px 27px; }
+    .timeline-top { display: flex; justify-content: space-between; gap: 15px; align-items: start; flex-wrap: wrap; }
+    .timeline-card h3 { font: 600 1.2rem "Space Grotesk"; margin: 0 0 5px; }
+    .timeline-card .org { color: var(--accent); font-size: .92rem; }
+    .timeline-date { color: var(--muted); font-size: .84rem; white-space: nowrap; }
+    .timeline-card p { color: var(--muted); margin: 15px 0 0; }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .tag { font-size: .76rem; color: #d4d9df; background: #20262d; border: 1px solid var(--line); padding: 5px 10px; border-radius: 999px; }
+    .skills-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 17px; }
+    .skill-card { background: var(--surface); border: 1px solid var(--line); border-radius: 15px; padding: 23px; transition: .25s; }
+    .skill-card:hover, .project-card:hover { transform: translateY(-5px); border-color: rgba(255,189,57,.45); }
+    .skill-icon { color: var(--accent); font-size: 1.35rem; margin-bottom: 15px; }
+    .skill-card h3 { font: 600 1.05rem "Space Grotesk"; margin: 0 0 12px; }
+    .skill-card p { color: var(--muted); font-size: .9rem; margin: 0; }
+    .projects-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; }
+    .project-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 27px; transition: .25s; display: flex; flex-direction: column; min-height: 300px; }
+    .project-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+    .project-icon { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 14px; color: var(--accent); background: rgba(255,189,57,.11); font-size: 1.2rem; }
+    .project-type { color: #8f99a4; font-size: .76rem; text-transform: uppercase; letter-spacing: .1em; }
+    .project-card h3 { font: 600 1.3rem "Space Grotesk"; margin: 0 0 10px; }
+    .project-card p { color: var(--muted); font-size: .93rem; margin: 0; }
+    .project-card .tag-list { margin-top: auto; padding-top: 22px; }
+    .project-footnote { color: #7f8994; font-size: .82rem; margin-top: 25px; }
+    .education-grid, .cert-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; }
+    .education-card, .cert-card { background: var(--surface); border: 1px solid var(--line); border-radius: 15px; padding: 24px; }
+    .education-card h3, .cert-card h3 { font: 600 1.1rem "Space Grotesk"; margin: 10px 0 6px; }
+    .education-card p, .cert-card p { color: var(--muted); font-size: .9rem; margin: 0; }
+    .education-card .year, .cert-card .issuer { color: var(--accent); font-size: .82rem; font-weight: 600; }
+    .cert-card i { color: var(--accent); font-size: 1.35rem; }
+    .contact-panel { display: grid; grid-template-columns: .9fr 1.1fr; gap: 35px; padding: 36px; border: 1px solid var(--line); border-radius: 22px; background: linear-gradient(135deg,#171c22,#101317); }
+    .contact-panel h3 { font: 600 1.55rem "Space Grotesk"; margin: 0 0 12px; }
+    .contact-panel p { color: var(--muted); }
+    .contact-link { display: flex; gap: 13px; align-items: center; margin: 18px 0; color: #dce1e6; overflow-wrap: anywhere; }
+    .contact-link i { color: var(--accent); width: 20px; }
+    .contact-form { display: grid; gap: 13px; }
+    .contact-form input, .contact-form textarea { width: 100%; padding: 14px 15px; background: #0d1014; color: var(--text); border: 1px solid var(--line); border-radius: 10px; outline: none; font: inherit; }
+    .contact-form input:focus, .contact-form textarea:focus { border-color: var(--accent); }
+    .contact-form textarea { min-height: 135px; resize: vertical; }
+    .form-hint { font-size: .78rem; color: #7f8994; margin: 0; }
+    footer { padding: 28px 0; border-top: 1px solid var(--line); color: #7f8994; font-size: .85rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 15px; flex-wrap: wrap; }
+    .back-top { position: fixed; right: 22px; bottom: 22px; width: 44px; height: 44px; display: grid; place-items: center; background: var(--accent); color: #17130a; border-radius: 12px; opacity: 0; pointer-events: none; transform: translateY(10px); transition: .2s; z-index: 900; }
+    .back-top.show { opacity: 1; pointer-events: auto; transform: none; }
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @media (max-width: 900px) {
+      .nav-links { gap: 15px; }
+      .hero-grid { gap: 35px; }
+      .skills-grid { grid-template-columns: repeat(2,1fr); }
+      .about-grid { gap: 35px; }
+    }
+    @media (max-width: 720px) {
+      .container { width: min(100% - 34px, var(--max)); }
+      .section { padding: 78px 0; }
+      .menu-toggle { display: block; }
+      .nav-links { display: none; position: fixed; top: 76px; left: 0; right: 0; background: #101419; border-bottom: 1px solid var(--line); padding: 18px 25px 25px; flex-direction: column; align-items: stretch; gap: 0; }
+      .nav-links.open { display: flex; }
+      .nav-links li a { display: block; padding: 12px 0; }
+      .nav-cta { display: inline-block!important; text-align: center; margin-top: 8px; }
+      .hero { min-height: auto; padding: 125px 0 65px; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-content { order: 2; }
+      .portrait-wrap { order: 1; width: min(68%, 300px); }
+      .portrait-frame { border-radius: 150px 150px 20px 20px; }
+      .portrait-note { left: -30px; bottom: 14px; padding: 10px 13px; }
+      .hero h1 { font-size: clamp(2.8rem, 14vw, 4.4rem); }
+      .stats-grid { grid-template-columns: 1fr; }
+      .stat { border-right: 0; border-bottom: 1px solid var(--line); }
+      .stat:last-child { border-bottom: 0; }
+      .about-grid, .contact-panel { grid-template-columns: 1fr; }
+      .skills-grid, .projects-grid, .education-grid, .cert-grid { grid-template-columns: 1fr; }
+      .contact-panel { padding: 24px; }
+      .info-grid { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *:before, *:after { transition-duration: .01ms!important; animation-duration: .01ms!important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a class="brand" href="#home" aria-label="Dineth Weerasinghe home">DINETH<span>.</span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#certifications">Certifications</a></li>
+        <li><a class="nav-cta" href="#contact">Let's talk <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
+      </ul>
+    </div>
+  </header>
 
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.css">
-    
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
-
-    <link rel="stylesheet" href="css/aos.css">
-
-    <link rel="stylesheet" href="css/ionicons.min.css">
-    
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
-  </head>
-  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
-	  
-	  
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
-	    <div class="container">
-	      
-	      <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span> Menu
-	      </button>
-
-	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav nav ml-auto">
-	          <li class="nav-item"><a href="#home-section" class="nav-link"><span>Home</span></a></li>
-	          <li class="nav-item"><a href="#about-section" class="nav-link"><span>About</span></a></li>
-	          <li class="nav-item"><a href="#resume-section" class="nav-link"><span>Resume</span></a></li>
-	          <li class="nav-item"><a href="#services-section" class="nav-link"><span>Skills</span></a></li>
-	          <li class="nav-item"><a href="#skills-section" class="nav-link"><span>Technical Skills</span></a></li>
-	          <li class="nav-item"><a href="#projects-section" class="nav-link"><span>Projects</span></a></li>
-	          <li class="nav-item"><a href="#blog-section" class="nav-link"><span>Certification</span></a></li>
-	          <li class="nav-item"><a href="#contact-section" class="nav-link"><span>Contact</span></a></li>
-	        </ul>
-	      </div>
-	    </div>
-	</nav>
-
-	<section class="ftco-about img ftco-section ftco-no-pb" id="home-section">
-    	<div class="container">
-    		<div class="row d-flex">
-					
-				<div class="container">
-	
-					<div class="row">
-
-						<div class="col-md-5">
-							<div class="one-forth d-flex  align-items-center ftco-animate">
-								<div class="text">
-									<span class="subheading" style="font-size: 30px;">Hello!</span>
-								<h1 class="mb-4 mt-3 ftco-animate" style="font-size: 60px; font-weight: bold;">I'm <span style="color: rgb(255, 189, 57);">Dineth <br> Weerasinghe</span></h1>
-								<h2 class="mb-4"> Data & Software Engineer </h2>
-								<p><a href="#contact-section" class="btn btn-primary py-3 px-4">Hire me</a> <a href="https://www.linkedin.com/in/dineth-weerasinghe/" class="btn btn-white btn-outline-white py-3 px-4">LinkedIn</a></p>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-md-7">
-								<div class="img">
-									<img src="images/dineth2.png" alt="profile photo" style="height: 650px; width: 650px;">
-								</div>
-						</div>
-
-					</div>
-				</div>
-	        </div>
-    	</div>
-    </section>
-	  
-
-    <section class="ftco-about img ftco-section ftco-no-pb" id="about-section">
-    	<div class="container">
-    		<div class="row d-flex">
-    			<div class="col-md-6 col-lg-5 d-flex">
-    				<div class="img-about img d-flex align-items-stretch">
-    					<div class="overlay"></div>
-	    				<div class="img d-flex align-self-stretch align-items-center" style="background-image:url(images/dineth.png);">
-	    				</div>
-    				</div>
-    			</div>
-    			<div class="col-md-6 col-lg-7 pl-lg-5 pb-5">
-    				<div class="row justify-content-start pb-3">
-		          <div class="col-md-12 heading-section ftco-animate">
-		          	<h1 class="big">About</h1>
-		            <h2 class="mb-4">About Me</h2>
-		            <p>Enthusiastic software engineering student eager to apply theoretical knowledge and coding skills to real-world projects.
-						 Proficient in diverse programming languages, committed to learning, and adept at problem-solving. Seeking hands-on
-						  experience in a collaborative, dynamic team.</p>
-		            <ul class="about-info mt-4 px-md-0 px-2">
-		            	<li class="d-flex"><span>Name:</span> <span>Dineth Weerasinghe</span></li>
-		            	<li class="d-flex"><span>Date of birth:</span> <span>Augest 13, 2000</span></li>
-		            	<li class="d-flex"><span>Address:</span> <span>233/A Balagolla Kengalla Kandy SriLanka</span></li>
-		            	<li class="d-flex"><span>Zip code:</span> <span>20186</span></li>
-		            	<li class="d-flex"><span>Email:</span> <span>dinethweerasinghe20@gmail.com</span></li>
-		            	<li class="d-flex"><span>Phone: </span> <span>+94 712 960 772</span></li>
-		            </ul>
-		          </div>
-		        </div>
-	          <div class="counter-wrap ftco-animate d-flex mt-md-3">
-              <div class="text">
-              	
-                <p><a href="dineth_weerasinghe_resume.pdf" class="btn btn-primary py-3 px-3" download="dineth_weerasinghe_resume">Download CV</a></p>
-              </div>
-	          </div>
-	        </div>
-        </div>
-    	</div>
-    </section>
-
-    <section class="ftco-section ftco-no-pb" id="resume-section">
-    	<div class="container">
-    		<div class="row justify-content-center pb-5">
-          <div class="col-md-10 heading-section text-center ftco-animate">
-          	<h1 class="big big-2">Resume</h1>
-            <h2 class="mb-4">Resume</h2>
-            <p>A concise showcase of diverse projects and accomplishments highlights expertise, creativity, and problem-solving skills 
-				across various domains, demonstrating adaptability and proficiency.</p>
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="hero-content reveal">
+          <!-- <div class="availability">Associate Data Engineer · Sri Lanka</div> -->
+          <h1>Hi, I'm<br><span>Dineth</span><br>Weerasinghe.</h1>
+          <p class="hero-role">Data Engineer <span class="accent">/</span> Software Engineer</p>
+          <p class="hero-copy">I build data-driven solutions, enterprise applications and intelligent automation that help turn complex business requirements into practical technology.</p>
+          <div class="button-row">
+            <a class="btn btn-primary" href="#projects">Explore my work <i class="fa-solid fa-arrow-right"></i></a>
+            <a class="btn btn-outline" href="dineth_weerasinghe_resume.pdf" download>Download CV <i class="fa-solid fa-download"></i></a>
+          </div>
+          <div class="hero-socials" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/dineth-weerasinghe/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://github.com/DinethWeerasinghe" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="mailto:dinethweerasinghe20@gmail.com" aria-label="Email"><i class="fa-regular fa-envelope"></i></a>
           </div>
         </div>
-    		<div class="row">
-    			<div class="col-md-6">
-    				<div class="resume-wrap ftco-animate">
-    					<span class="date">Since 2021</span>
-    					<h2>B.Sc Business Information Systems (Special) Degree</h2>
-    					<span class="position">University of Sri Jayewardenepura</span>
-    					<p class="mt-4">SLQF Level 06 (120 credits) 4-year degree program at the Department of Information Technology at 
-							the Faculty of Management Studies and Commerce.</p>
-    				</div>
-    				<div class="resume-wrap ftco-animate">
-    					<span class="date">2015-2016</span>
-    					<h2>G.C.E Ordinary Level</h2>
-    					<span class="position">Sumangala Collage Kandy</span>
-    					<p class="mt-4">
-							Index No:  6403166 | 
-							7 distinctions(A) including Mathematics and
-							Science and 2 very good(B) passes
-						</p>
-    				</div>
-    			</div>
-
-    			<div class="col-md-6">
-    				<div class="resume-wrap ftco-animate">
-    					<span class="date">2017-2019</span>
-    					<h2>G.C.E Advance Level <br> <br></h2>
-    					<span class="position">Dharmaraja Collage Kandy</span>
-    					<p class="mt-4">District rank: 42 (Kandy) | 
-							Index No:  6403166 | 
-							Accounting: A | 
-							Business studies: A | 
-							Information and communication technology: A</p>
-    				</div>
-    			</div>
-    		</div>
-    		<div class="row justify-content-center mt-5">
-    			<div class="col-md-6 text-center ftco-animate">
-    				<p><a href="dineth_weerasinghe_resume.pdf" download="dineth_weerasinghe_resume" class="btn btn-primary py-4 px-5">Download CV</a></p>
-    			</div>
-    		</div>
-    	</div>
-    </section>
-
-    <section class="ftco-section" id="services-section">
-    	<div class="container">
-    		<div class="row justify-content-center py-5 mt-5">
-          <div class="col-md-12 heading-section text-center ftco-animate">
-          	<h1 class="big big-2">Skills</h1>
-            <h2 class="mb-4">Skills</h2>
-            <p>Proficient in coding, design, communication, problem-solving, and project management, demonstrated through successful 
-				projects and collaborations.</p>
+        <div class="portrait-wrap reveal">
+          <div class="portrait-frame">
+            <img src="images/dineth2.png" alt="Portrait of Dineth Weerasinghe" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <div class="portrait-placeholder"><i class="fa-solid fa-user"></i></div>
           </div>
+          <div class="portrait-note"><strong>Data + Engineering</strong><small>Turning ideas into solutions</small></div>
         </div>
-    		<div class="row">
-					
-				<div class="col-md-4 text-center d-flex ftco-animate">
-					<div class="services-1">
-						<span class="icon">
-							<i class="flaticon-analysis"></i>
-						</span>
-						<div class="desc">
-							<h3 class="mb-5">Problem solving</h3>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 text-center d-flex ftco-animate">
-					<div class="services-1">
-						<span class="icon">
-							<i class="flaticon-ux-design"></i>
-						</span>
-						<div class="desc">
-							<h3 class="mb-5">Teamwork and collaboration</h3>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 text-center d-flex ftco-animate">
-					<div class="services-1">
-						<span class="icon">
-							<i class="flaticon-innovation"></i>
-						</span>
-						<div class="desc">
-							<h3 class="mb-5">Creativity</h3>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 text-center d-flex ftco-animate">
-					<div class="services-1">
-						<span class="icon">
-							<i class="flaticon-idea"></i>
-						</span>
-						<div class="desc">
-							<h3 class="mb-5">Critical thinking</h3>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 text-center d-flex ftco-animate">
-					<div class="services-1">
-						<span class="icon">
-							<i class="flaticon-ideas"></i>
-						</span>
-						<div class="desc">
-							<h3 class="mb-5">Leadership</h3>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 text-center d-flex ftco-animate">
-					<div class="services-1">
-						<span class="icon">
-							<i class="flaticon-web-design"></i>
-						</span>
-						<div class="desc">
-							<h3 class="mb-5">Self learning</h3>
-						</div>
-					</div>
-				</div>
-					
-					
-			</div>
-    	</div>
+      </div>
     </section>
 
-		
-		<section class="ftco-section" id="skills-section">
-			<div class="container">
-				<div class="row justify-content-center pb-5">
-          <div class="col-md-12 heading-section text-center ftco-animate">
-          	<h1 class="big big-2">Technical Skills</h1>
-            <h2 class="mb-4">My Technical Skills</h2>
-            <p>Proficiency in programming languages, software tools, and systems, showcasing expertise through practical application.</p>
-          </div>
+    <section class="stats">
+      <div class="container stats-grid">
+        <div class="stat"><strong>Enterprise</strong><span>Project experience</span></div>
+        <div class="stat"><strong>End-to-end</strong><span>Development mindset</span></div>
+        <div class="stat"><strong>Continuous</strong><span>Learning & improvement</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container about-grid">
+        <div class="about-card reveal">
+          <div class="about-mark"><i class="fa-solid fa-code"></i></div>
+          <h3>Engineering with purpose.</h3>
+          <p>I enjoy connecting software, data and business processes to build reliable solutions that make a measurable difference.</p>
         </div>
-				<div class="row">
-					<div class="col-md-6 animate-box">
-						<div class="progress-wrap ftco-animate">
-							<h3>HTML5</h3>
-							<div class="progress">
-							 	<div class="progress-bar color-1" role="progressbar" aria-valuenow="85"
-							  	aria-valuemin="0" aria-valuemax="100" style="width:85%">
-							    <span>85%</span>
-							  	</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 animate-box">
-						<div class="progress-wrap ftco-animate">
-							<h3>javaScript</h3>
-							<div class="progress">
-							 	<div class="progress-bar color-2" role="progressbar" aria-valuenow="85"
-							  	aria-valuemin="0" aria-valuemax="100" style="width:85%">
-							    <span>85%</span>
-							  	</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 animate-box">
-						<div class="progress-wrap ftco-animate">
-							<h3>CSS</h3>
-							<div class="progress">
-							 	<div class="progress-bar color-3" role="progressbar" aria-valuenow="85"
-							  	aria-valuemin="0" aria-valuemax="100" style="width:85%">
-							    <span>85%</span>
-							  	</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 animate-box">
-						<div class="progress-wrap ftco-animate">
-							<h3>PHP</h3>
-							<div class="progress">
-							 	<div class="progress-bar color-4" role="progressbar" aria-valuenow="80"
-							  	aria-valuemin="0" aria-valuemax="100" style="width:82%">
-							    <span>80%</span>
-							  	</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 animate-box">
-						<div class="progress-wrap ftco-animate">
-							<h3>SQL</h3>
-							<div class="progress">
-							 	<div class="progress-bar color-5" role="progressbar" aria-valuenow="85"
-							  	aria-valuemin="0" aria-valuemax="100" style="width:82%">
-							    <span>85%</span>
-							  	</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 animate-box">
-						<div class="progress-wrap ftco-animate">
-							<h3>C#</h3>
-							<div class="progress">
-							 	<div class="progress-bar color-6" role="progressbar" aria-valuenow="80"
-							  	aria-valuemin="0" aria-valuemax="100" style="width:80%">
-							    <span>80%</span>
-							  	</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 animate-box">
-						<div class="progress-wrap ftco-animate">
-							<h3>Java</h3>
-							<div class="progress">
-							 	<div class="progress-bar color-1" role="progressbar" aria-valuenow="75"
-							  	aria-valuemin="0" aria-valuemax="100" style="width:75%">
-							    <span>75%</span>
-							  	</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 animate-box">
-						<div class="progress-wrap ftco-animate">
-							<h3>Python</h3>
-							<div class="progress">
-							 	<div class="progress-bar color-2" role="progressbar" aria-valuenow=80"
-							  	aria-valuemin="0" aria-valuemax="100" style="width:80%">
-							    <span>80%</span>
-							  	</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 animate-box">
-						<div class="progress-wrap ftco-animate">
-							<h3>React</h3>
-							<div class="progress">
-							 	<div class="progress-bar color-3" role="progressbar" aria-valuenow="60"
-							  	aria-valuemin="0" aria-valuemax="100" style="width:60%">
-							    <span>60%</span>
-							  	</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 animate-box">
-						<div class="progress-wrap ftco-animate">
-							<h3>Angular</h3>
-							<div class="progress">
-							 	<div class="progress-bar color-4" role="progressbar" aria-valuenow="65"
-							  	aria-valuemin="0" aria-valuemax="100" style="width:65%">
-							    <span>65%</span>
-							  	</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 animate-box">
-						<div class="progress-wrap ftco-animate">
-							<h3>.Net</h3>
-							<div class="progress">
-							 	<div class="progress-bar color-5" role="progressbar" aria-valuenow="75"
-							  	aria-valuemin="0" aria-valuemax="100" style="width:75%">
-							    <span>75%</span>
-							  	</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 animate-box">
-						<div class="progress-wrap ftco-animate">
-							<h3>Bootstrap</h3>
-							<div class="progress">
-							 	<div class="progress-bar color-6" role="progressbar" aria-valuenow="80"
-							  	aria-valuemin="0" aria-valuemax="100" style="width:80%">
-							    <span>80%</span>
-							  	</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 animate-box">
-						<div class="progress-wrap ftco-animate">
-							<h3>Codeigniter</h3>
-							<div class="progress">
-							 	<div class="progress-bar color-6" role="progressbar" aria-valuenow="70"
-							  	aria-valuemin="0" aria-valuemax="100" style="width:70%">
-							    <span>70%</span>
-							  	</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
- 
-
-    <section class="ftco-section ftco-project" id="projects-section">
-    	<div class="container">
-    		<div class="row justify-content-center pb-5">
-          		<div class="col-md-12 heading-section text-center ftco-animate">
-          			<h1 class="big big-2">Projects</h1>
-            		<h2 class="mb-4">My Projects</h2>
-           			<p>Highlighting innovative solutions and technical expertise through successful project implementations and outcomes.</p>
-          		</div>
-    		</div>
-    		<div class="row">
-    			<div class="col-md-4">
-    				<div class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url(images/bmi.jpg);">
-    					<div class="overlay"></div>
-	    				<div class="text text-center p-4">
-	    					<h3><a href="https://github.com/DinethWeerasinghe/BMI-Calculator">BMI Calculator</a></h3>
-	    					<span>Stand-alone Application</span>
-	    				</div>
-    				</div>
-  				</div>
-  				<div class="col-md-8">
-    				<div class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url(images/gpa.png);">
-    					<div class="overlay"></div>
-	    				<div class="text text-center p-4">
-	    					<h3><a href="http://gpacalculator.great-site.net/">GPA Calculator</a></h3>
-	    					<span>Web Application</span>
-	    				</div>
-    				</div>
-  				</div>
-
-    			<div class="col-md-8">
-    				<div class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url(images/tic.jpg);">
-    					<div class="overlay"></div>
-	    				<div class="text text-center p-4">
-	    					<h3><a href="https://github.com/DinethWeerasinghe/basic-tic-tac-toe">Basic Tic-Tac-Toe</a></h3>
-	    					<span>Stand-alone Application</span>
-	    				</div>
-    				</div>
-    			</div>
-    		</div>
-    	</div>
-    </section>
-
-
-    <section class="ftco-section" id="blog-section">
-      	<div class="container">
-
-			<div class="row justify-content-center mb-5 pb-5">
-				<div class="col-md-7 heading-section text-center ftco-animate">
-					<h1 class="big big-2">Certification</h1>
-					<h2 class="mb-4">My Certification</h2>
-					<p>Demonstrating expertise and dedication through accredited courses and certifications relevant to the field.</p>
-				</div>
-			</div>
-
-			<div class="row d-flex">
-
-				<div class="col-md-4 d-flex ftco-animate">
-					<div class="blog-entry justify-content-end">
-						<a href="https://www.linkedin.com/posts/dineth-weerasinghe_huawei-asiapacific-cloud-activity-7035208121430028289-R6UC?utm_source=share&utm_medium=member_desktop" class="block-20" style="background-image: url('images/huawei.jpg');">
-						</a>
-						<div class="text mt-3 float-right d-block">
-							<div class="d-flex align-items-center mb-3 meta">
-								<p class="mb-0">
-									<span class="mr-2">May 09, 2022</span>
-								</p>
-							</div>
-							<h3 class="heading"><a href="https://www.linkedin.com/posts/dineth-weerasinghe_huawei-asiapacific-cloud-activity-7035208121430028289-R6UC?utm_source=share&utm_medium=member_desktop">Huawei ICT Competition Asia Pacific | Cloud Track - Top 10</a></h3>
-							<p>Became a Top 10 winner in the Huawei ICT Competition Asia Pacific 2021-2022 with Cloud Track from Huawei</p>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 d-flex ftco-animate">
-					<div class="blog-entry justify-content-end">
-						<a href="https://www.linkedin.com/posts/dineth-weerasinghe_net-full-stack-foundation-coursera-certificate-activity-7151847184613658624-rDp4?utm_source=share&utm_medium=member_desktop" class="block-20" style="background-image: url('images/net.png');">
-						</a>
-						<div class="text mt-3 float-right d-block">
-							<div class="d-flex align-items-center mb-3 meta">
-								<p class="mb-0">
-									<span class="mr-2">January 12, 2024</span>
-								</p>
-							</div>
-							<h3 class="heading"><a href="https://www.linkedin.com/posts/dineth-weerasinghe_net-full-stack-foundation-coursera-certificate-activity-7151847184613658624-rDp4?utm_source=share&utm_medium=member_desktop">.Net Full Stack Foundation</a></h3>
-							<p>Completed ".Net Full Stack Foundation" course on Coursera, mastering ASP.NET, C#, OOP, exception handling, asynchronous coding.</p>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 d-flex ftco-animate">
-					<div class="blog-entry">
-						<a href="https://www.linkedin.com/posts/dineth-weerasinghe_certificate-of-completion-activity-7148170675281608704-1jW_?utm_source=share&utm_medium=member_desktop" class="block-20" style="background-image: url('images/linkedin.png');">
-						</a>
-						<div class="text mt-3 float-right d-block">
-							<div class="d-flex align-items-center mb-3 meta">
-								<p class="mb-0">
-									<span class="mr-2">January 02, 2024</span>
-								</p>
-							</div>
-							<h3 class="heading"><a href="https://www.linkedin.com/posts/dineth-weerasinghe_certificate-of-completion-activity-7148170675281608704-1jW_?utm_source=share&utm_medium=member_desktop">Career Essentials in Software Development by Microsoft and LinkedIn</a></h3>
-							<p>Finished "Career Essentials in Software Development" by Microsoft and LinkedIn, enriching software development skills and insights.</p>
-						</div>
-					</div>
-				</div>
-
-			</div>
-
-			<div class="row d-flex">
-
-				<div class="col-md-4 d-flex ftco-animate">
-					<div class="blog-entry justify-content-end">
-						<a href="https://www.linkedin.com/posts/dineth-weerasinghe_python-for-beginners-e-certificate-activity-7144965155926269952-mBI0?utm_source=share&utm_medium=member_desktop" class="block-20" style="background-image: url('images/moratuwa.png');">
-						</a>
-						<div class="text mt-3 float-right d-block">
-							<div class="d-flex align-items-center mb-3 meta">
-								<p class="mb-0">
-									<span class="mr-2">December 25, 2023</span>
-								</p>
-							</div>
-							<h3 class="heading"><a href="https://www.linkedin.com/posts/dineth-weerasinghe_python-for-beginners-e-certificate-activity-7144965155926269952-mBI0?utm_source=share&utm_medium=member_desktop">Python for Beginners</a></h3>
-							<p>Finished University of Moratuwa's Python for Beginners course, building fundamental skills for software development journey. Excited to apply knowledge.</p>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 d-flex ftco-animate">
-					<div class="blog-entry justify-content-end">
-						<a href="https://www.linkedin.com/posts/dineth-weerasinghe_javascript-bootstrap-php-activity-7144226735557869568-A55S?utm_source=share&utm_medium=member_desktop" class="block-20" style="background-image: url('images/udemy.jpg');">
-						</a>
-						<div class="text mt-3 float-right d-block">
-							<div class="d-flex align-items-center mb-3 meta">
-								<p class="mb-0">
-									<span class="mr-2">December 23, 2023</span>
-								</p>
-							</div>
-							<h3 class="heading"><a href="https://www.linkedin.com/posts/dineth-weerasinghe_javascript-bootstrap-php-activity-7144226735557869568-A55S?utm_source=share&utm_medium=member_desktop">JavaScript, Bootstrap, & PHP for Beginners</a></h3>
-							<p>Certified in JavaScript, Bootstrap, & PHP via Udemy, mastering interactivity, mobile-first development, input validation, and MySQL interaction.</p>
-						</div>
-					</div>
-				</div>
-
-			</div>
-
-      	</div>
-    </section>
-
-
-    
-
-    <section class="ftco-section contact-section ftco-no-pb" id="contact-section">
-
-      	<div class="container">
-
-			<div class="row justify-content-center mb-5 pb-3">
-				<div class="col-md-7 heading-section text-center ftco-animate">
-					<h1 class="big big-2">Contact</h1>
-					<h2 class="mb-4">Contact Me</h2>
-					<p>Reach out for inquiries or collaborations.</p>
-				</div>
-				</div>
-
-				<div class="row d-flex contact-info mb-5">
-				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
-					<div class="align-self-stretch box p-4 text-center">
-						<div class="icon d-flex align-items-center justify-content-center">
-							<span class="icon-map-signs"></span>
-						</div>
-						<h3 class="mb-4">Address</h3>
-						<p>233/A, Balagolla, Kengalla, Kandy, Sri Lanka.</p>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
-					<div class="align-self-stretch box p-4 text-center">
-						<div class="icon d-flex align-items-center justify-content-center">
-							<span class="icon-phone2"></span>
-						</div>
-						<h3 class="mb-4">Contact Number</h3>
-						<p>+94 712 960 772</p>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
-					<div class="align-self-stretch box p-4 text-center">
-						<div class="icon d-flex align-items-center justify-content-center">
-							<span class="icon-paper-plane"></span>
-						</div>
-						<h3 class="mb-4">Email Address</h3>
-						<p>dinethweerasinghe20@gmail.com</p>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
-					<div class="align-self-stretch box p-4 text-center">
-						<div class="icon d-flex align-items-center justify-content-center">
-							<span class="icon-globe"></span>
-						</div>
-						<h3 class="mb-4">Website</h3>
-						<p>dineth.lovestoblog.com</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="row no-gutters block-9">
-				<div class="col-md-6 order-md-last d-flex">
-
-					<form action="save.php" name="form" class="bg-light p-4 p-md-5 contact-form" method="post">
-
-						<div class="form-group">
-							<input type="text" name="name" id="name" class="form-control" placeholder="Your Name" required>
-						</div>
-						<div class="form-group">
-							<input type="text" name="email" id="email" class="form-control" placeholder="Your Email" required>
-						</div>
-						<div class="form-group">
-							<input type="text" name="subject" id="subject" class="form-control" placeholder="Subject">
-						</div>
-						<div class="form-group">
-							<textarea name="msg" id="msg" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
-						</div>
-						<div class="form-group">
-							<input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
-						</div>
-						
-					</form>
-			
-				</div>
-
-				<div class="col-md-6 d-flex">
-					<div class="img" style="background-image: url(images/dineth1.jpg);"></div>
-				</div>
-
-        	</div>
-
-      	</div>
-
-    </section>
-		
-
-    <footer class="ftco-footer ftco-section">
-      <div class="container">
-        <div class="row mb-5">
-          <div class="col-md-6">
-            <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">About</h2>
-              <p>Enthusiastic software engineering student eager to apply theoretical knowledge and coding skills to real-world projects. 
-				Proficient in diverse programming languages, committed to learning, and adept at problem-solving. Seeking hands-on experience 
-				in a collaborative, dynamic team.</p>
-              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-                <li class="ftco-animate"><a href="https://twitter.com/x_dinethw"><span class="icon-twitter"></span></a></li>
-                <li class="ftco-animate"><a href="https://facebook.com/dineth.weerasinghe.102/"><span class="icon-facebook"></span></a></li>
-                <li class="ftco-animate"><a href="https://www.instagram.com/_di_ne_th_/"><span class="icon-instagram"></span></a></li>
-				<li class="ftco-animate"><a href="https://github.com/DinethWeerasinghe"><span class="icon-github"></span></a></li>
-				<li class="ftco-animate"><a href="https://www.linkedin.com/in/dineth-weerasinghe"><span class="icon-linkedin"></span></a></li>
-				<li class="ftco-animate"><a href="https://www.youtube.com/channel/UC_4420mKyHnVkQIrjlpaC9g"><span class="icon-youtube"></span></a></li>
-				<li class="ftco-animate"><a href="https://open.spotify.com/user/n11l6o0s6wn1m6144ixk15097"><span class="icon-spotify"></span></a></li>
-              </ul>
-            </div>
+        <div class="about-content reveal">
+          <div class="section-heading">
+            <p class="section-kicker">A little about me</p>
+            <h2>Building useful technology, one solution at a time.</h2>
           </div>
-          <div class="col-md-2">
-            <div class="ftco-footer-widget mb-4 ml-md-4">
-              <h2 class="ftco-heading-2">Links</h2>
-              <ul class="list-unstyled">
-                <li><a href="#home-section"><span class="icon-long-arrow-right mr-2"></span>Home</a></li>
-                <li><a href="#about-section"><span class="icon-long-arrow-right mr-2"></span>About</a></li>
-                <li><a href="#services-section"><span class="icon-long-arrow-right mr-2"></span>Skills</a></li>
-                <li><a href="#projects-section"><span class="icon-long-arrow-right mr-2"></span>Projects</a></li>
-                <li><a href="#contact-section"><span class="icon-long-arrow-right mr-2"></span>Contact</a></li>
-              </ul>
-            </div>
-          </div>
-          
-          <div class="col-md-4">
-            <div class="ftco-footer-widget mb-4">
-            	<h2 class="ftco-heading-2">Have a Questions?</h2>
-            	<div class="block-23 mb-3">
-	              <ul>
-	                <li><span class="icon icon-map-marker"></span><span class="text">233/A, Balagolla, Kengalla, Kandy, Sri Lanka.</span></li>
-	                <li><span class="icon icon-phone"></span><span class="text">+94 712 960 772</span></li>
-	                <li><span class="icon icon-envelope"></span><span class="text">dinethweerasinghe20@gmail.com</span></li>
-	              </ul>
-	            </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 text-center">
-
-            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Dineth Weerasinghe | Template by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+          <p>I'm a Data and Software Engineer with a B.Sc. in Business Information Systems (Special) from the University of Sri Jayewardenepura. I currently work as an Associate Data Engineer, contributing to enterprise data solutions, application development, automation and system integrations.</p>
+          <p>My work spans data platforms, backend and frontend development, API integrations, workflow automation and deployment support. I enjoy understanding challenging requirements, exploring new technologies and collaborating with teams to deliver practical, maintainable solutions.</p>
+          <div class="info-grid">
+            <div class="info-item"><small>Current role</small><strong>Associate Data Engineer</strong></div>
+            <div class="info-item"><small>Education</small><strong>B.Sc. Business Information Systems</strong></div>
+            <div class="info-item"><small>Location</small><strong>Kandy, Sri Lanka</strong></div>
+            <div class="info-item"><small>Email</small><strong><a href="mailto:dinethweerasinghe20@gmail.com">dinethweerasinghe20@gmail.com</a></strong></div>
           </div>
         </div>
       </div>
-    </footer>
-    
-  
+    </section>
 
-  <!-- loader -->
-  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+    <section class="section" id="experience" style="background:#0e1115">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="section-kicker">Career journey</p>
+          <h2>Professional experience</h2>
+          <p>Working across data engineering, enterprise software, automation and integration initiatives.</p>
+        </div>
+        <div class="timeline">
+          <article class="timeline-item reveal">
+            <div class="timeline-card">
+              <div class="timeline-top">
+                <div><h3>Associate Data Engineer</h3><div class="org">Altria Consulting · Data Engineering & Analytics</div></div>
+                <span class="timeline-date">Current role</span>
+              </div>
+              <p>Contribute to the design, development and delivery of enterprise data and software solutions. Work across application development, data integration, automation, testing, deployment and production support.</p>
+              <div class="tag-list"><span class="tag">Data Engineering</span><span class="tag">Software Development</span><span class="tag">Automation</span><span class="tag">API Integration</span><span class="tag">UAT & Deployment</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
 
+    <section class="section" id="skills">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="section-kicker">What I work with</p>
+          <h2>Technical skills</h2>
+          <p>A practical toolkit across data engineering, software development, databases and enterprise integration.</p>
+        </div>
+        <div class="skills-grid">
+          <article class="skill-card reveal"><div class="skill-icon"><i class="fa-solid fa-database"></i></div><h3>Data Engineering</h3><p>Snowflake, Databricks, SQL, data pipelines, data warehousing and ETL/ELT concepts.</p></article>
+          <article class="skill-card reveal"><div class="skill-icon"><i class="fa-solid fa-code"></i></div><h3>Programming</h3><p>Python, JavaScript, Java, C#, SQL and PHP.</p></article>
+          <article class="skill-card reveal"><div class="skill-icon"><i class="fa-solid fa-layer-group"></i></div><h3>Frontend Development</h3><p>React, Angular, HTML5, CSS3, Bootstrap and responsive UI development.</p></article>
+          <article class="skill-card reveal"><div class="skill-icon"><i class="fa-solid fa-server"></i></div><h3>Backend Development</h3><p>Node.js, Express.js, .NET, REST APIs and application architecture.</p></article>
+          <article class="skill-card reveal"><div class="skill-icon"><i class="fa-solid fa-plug"></i></div><h3>Integration & Automation</h3><p>REST, SOAP, Boomi, n8n, Playwright and process automation.</p></article>
+          <article class="skill-card reveal"><div class="skill-icon"><i class="fa-solid fa-cloud"></i></div><h3>Platforms & Tools</h3><p>Azure, Huawei Cloud, PostgreSQL, MySQL, Git, GitLab and Linux.</p></article>
+        </div>
+      </div>
+    </section>
 
-  <script src="js/jquery.min.js"></script>
-  <script src="js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.easing.1.3.js"></script>
-  <script src="js/jquery.waypoints.min.js"></script>
-  <script src="js/jquery.stellar.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.magnific-popup.min.js"></script>
-  <script src="js/aos.js"></script>
-  <script src="js/jquery.animateNumber.min.js"></script>
-  <script src="js/scrollax.min.js"></script>
-  
-  <script src="js/main.js"></script>
-    
-  </body>
+    <section class="section" id="projects" style="background:#0e1115">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="section-kicker">Selected work</p>
+          <h2>Featured projects</h2>
+          <p>A selection of enterprise and personal projects demonstrating my experience across data, software and automation. Project details are intentionally high-level where work is confidential.</p>
+        </div>
+        <div class="projects-grid">
+          <article class="project-card reveal">
+            <div class="project-top"><div class="project-icon"><i class="fa-solid fa-diagram-project"></i></div><span class="project-type">Enterprise platform</span></div>
+            <h3>Metadata Management</h3>
+            <p>A metadata management platform supporting requester, approval, administration and support workflows, with role-based access and enterprise data integrations.</p>
+            <div class="tag-list"><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">Snowflake</span><span class="tag">Azure</span><span class="tag">JWT / RBAC</span></div>
+          </article>
+          <article class="project-card reveal">
+            <div class="project-top"><div class="project-icon"><i class="fa-solid fa-robot"></i></div><span class="project-type">Process automation</span></div>
+            <h3>RPA Automation</h3>
+            <p>Browser automation solution for validation workflows across multiple motor and finance portals, helping reduce repetitive manual processing.</p>
+            <div class="tag-list"><span class="tag">Python</span><span class="tag">Playwright</span><span class="tag">RPA</span><span class="tag">Process Automation</span></div>
+          </article>
+          <article class="project-card reveal">
+            <div class="project-top"><div class="project-icon"><i class="fa-solid fa-mobile-screen-button"></i></div><span class="project-type">Telecommunications</span></div>
+            <h3>Number Recycling Automation</h3>
+            <p>Automated number recycling workflow integrating data services and telecom platform interfaces to support efficient processing and validation.</p>
+            <div class="tag-list"><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">Snowflake REST API</span><span class="tag">SOAP</span></div>
+          </article>
+          <article class="project-card reveal">
+            <div class="project-top"><div class="project-icon"><i class="fa-solid fa-shield-halved"></i></div><span class="project-type">Research infrastructure</span></div>
+            <h3>Trusted Research Environment</h3>
+            <p>Secure research environment workflow involving identity management, dataset access approvals and provisioning of integrated research tools.</p>
+            <div class="tag-list"><span class="tag">Keycloak</span><span class="tag">ClickHouse</span><span class="tag">n8n</span><span class="tag">Guacamole</span><span class="tag">JupyterHub</span></div>
+          </article>
+          <article class="project-card reveal">
+            <div class="project-top"><div class="project-icon"><i class="fa-solid fa-heart-pulse"></i></div><span class="project-type">Health technology</span></div>
+            <h3>National Digital Health – NDD</h3>
+            <p>Healthcare KPI and workflow solutions bringing together health data standards and metadata to support consistent indicator management.</p>
+            <div class="tag-list"><span class="tag">Next.js</span><span class="tag">Node.js</span><span class="tag">PostgreSQL</span><span class="tag">FHIR R4</span><span class="tag">DHIS2</span></div>
+          </article>
+          <article class="project-card reveal">
+            <div class="project-top"><div class="project-icon"><i class="fa-solid fa-graduation-cap"></i></div><span class="project-type">Personal project</span></div>
+            <h3>GPA Calculator</h3>
+            <p>A web-based GPA calculation tool created to help students calculate and review academic results.</p>
+            <div class="tag-list"><span class="tag">Web Development</span><span class="tag">JavaScript</span><span class="tag">HTML</span><span class="tag">CSS</span></div>
+            <div style="padding-top:16px"><a class="accent" href="http://gpacalculator.great-site.net/" target="_blank" rel="noopener noreferrer">Visit project <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div>
+          </article>
+        </div>
+        <p class="project-footnote">Note: Enterprise project descriptions are summaries. Public screenshots, source code and links should only be added where disclosure is approved.</p>
+      </div>
+    </section>
+
+    <section class="section" id="education">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="section-kicker">Academic background</p>
+          <h2>Education</h2>
+        </div>
+        <div class="education-grid">
+          <article class="education-card reveal"><span class="year">2021 – 2025</span><h3>B.Sc. Business Information Systems (Special)</h3><p>University of Sri Jayewardenepura<br>Faculty of Management Studies and Commerce · Department of Information Technology</p></article>
+          <article class="education-card reveal"><span class="year">2017 – 2019</span><h3>G.C.E. Advanced Level</h3><p>Dharmaraja College, Kandy<br>Commerce stream · Kandy District Rank: 42<br>Accounting (A), Business Studies (A), ICT (A)</p></article>
+          <article class="education-card reveal"><span class="year">2015 – 2016</span><h3>G.C.E. Ordinary Level</h3><p>Sumangala College, Kandy<br>Seven A passes and two B passes.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="certifications" style="background:#0e1115">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="section-kicker">Continuous learning</p>
+          <h2>Certifications & achievements</h2>
+          <p>Professional learning and achievements across databases, integration, software development and cloud technologies.</p>
+        </div>
+        <div class="cert-grid">
+          <article class="cert-card reveal"><i class="fa-solid fa-certificate"></i><h3>Huawei HCCDA – GaussDB</h3><p class="issuer">Huawei</p><p>Certification in Huawei GaussDB database technologies.</p></article>
+          <article class="cert-card reveal"><i class="fa-solid fa-certificate"></i><h3>Boomi Associate Integration</h3><p class="issuer">Boomi</p><p>Integration development and platform fundamentals.</p></article>
+          <article class="cert-card reveal"><i class="fa-solid fa-certificate"></i><h3>Boomi Professional Integration</h3><p class="issuer">Boomi</p><p>Professional-level integration development learning and certification.</p></article>
+          <article class="cert-card reveal"><i class="fa-solid fa-award"></i><h3>Huawei ICT Competition – Asia Pacific</h3><p class="issuer">Cloud Track · Top 10</p><p>Recognised among the Top 10 in the Asia Pacific Cloud Track competition.</p></article>
+          <article class="cert-card reveal"><i class="fa-solid fa-certificate"></i><h3>.NET Full Stack Foundation</h3><p class="issuer">Coursera</p><p>ASP.NET, C#, object-oriented programming and application development.</p></article>
+          <article class="cert-card reveal"><i class="fa-solid fa-certificate"></i><h3>Career Essentials in Software Development</h3><p class="issuer">Microsoft & LinkedIn</p><p>Software development concepts and professional skills.</p></article>
+          <article class="cert-card reveal"><i class="fa-solid fa-certificate"></i><h3>Python for Beginners</h3><p class="issuer">University of Moratuwa</p><p>Programming fundamentals and Python development.</p></article>
+          <article class="cert-card reveal"><i class="fa-solid fa-certificate"></i><h3>APNIC Cybersecurity Fundamentals</h3><p class="issuer">APNIC</p><p>Foundational cybersecurity concepts and practices.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="section-kicker">Get in touch</p>
+          <h2>Let's build something meaningful.</h2>
+          <p>Have a project, opportunity or idea to discuss? Feel free to reach out.</p>
+        </div>
+        <div class="contact-panel reveal">
+          <div>
+            <h3>Contact information</h3>
+            <p>I'm open to professional conversations, collaboration and opportunities to solve interesting technology challenges.</p>
+            <a class="contact-link" href="mailto:dinethweerasinghe20@gmail.com"><i class="fa-regular fa-envelope"></i> dinethweerasinghe20@gmail.com</a>
+            <a class="contact-link" href="https://www.linkedin.com/in/dineth-weerasinghe/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i> LinkedIn profile</a>
+            <a class="contact-link" href="https://github.com/DinethWeerasinghe" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> GitHub profile</a>
+          </div>
+          <form class="contact-form" action="save.php" method="POST">
+            <input type="text" id="name" name="name" placeholder="Your name" autocomplete="name" required>
+            <input type="email" id="email" name="email" placeholder="Your email address" autocomplete="email" required>
+            <input type="text" id="subject" name="subject" placeholder="Subject">
+            <textarea id="message" name="message" placeholder="Tell me about your message..." required></textarea>
+            <button class="btn btn-primary" type="submit">Send message <i class="fa-regular fa-paper-plane"></i></button>
+            <p class="form-hint">This opens your email application with the message prepared. No message is stored on this website.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Dineth Weerasinghe. All rights reserved.</span>
+      <span>Designed with purpose <span class="accent">✦</span></span>
+    </div>
+  </footer>
+  <a href="#home" class="back-top" id="backTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></a>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    const backTop = document.getElementById('backTop');
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      document.body.classList.toggle('menu-open', isOpen);
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.innerHTML = isOpen ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        document.body.classList.remove('menu-open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+      });
+    });
+
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+      backTop.classList.toggle('show', window.scrollY > 500);
+    });
+
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    const sections = document.querySelectorAll('main section[id]');
+    const navObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.querySelectorAll('a').forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id));
+        }
+      });
+    }, { rootMargin: '-35% 0px -55% 0px' });
+    sections.forEach(section => navObserver.observe(section));
+
+    document.getElementById('contactForm').addEventListener('submit', event => {
+      event.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const subject = document.getElementById('subject').value.trim() || 'Portfolio enquiry';
+      const message = document.getElementById('message').value.trim();
+      const body = `Hi Dineth,\n\n${message}\n\nRegards,\n${name}\n${email}`;
+      window.location.href = `mailto:dinethweerasinghe20@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    });
+  </script>
+</body>
 </html>

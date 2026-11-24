@@ -1,76 +1,198 @@
+
 <?php
 
-    $printmsg = "";
-    $textcolor = "black";
+$status = 'error';
+$title = 'Message Not Sent';
+$message = 'Sorry, something went wrong while submitting your message.';
 
-    if(!empty($_POST)){
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $subject = $_POST['subject'];
-        $msg = $_POST['msg'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        $conn = mysqli_connect("sql201.infinityfree.com","if0_34618359","ntrK9gqNPVLRnu","if0_34618359_db_portfolio");
+    $name = trim($_POST['name'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $subject = trim($_POST['subject'] ?? '');
+    $msg = trim($_POST['message'] ?? '');
 
-        $q = "INSERT INTO tb_message
-        (u_name,u_email,u_subject,u_message) 
-        VALUE ('$name','$email','$subject','$msg')";
+    if ($name === '' || $email === '' || $subject === '' || $msg === '') {
 
-        $result = mysqli_query($conn,$q);
+        $title = 'Missing Information';
+        $message = 'Please complete all fields before submitting.';
 
-        if($result){
-            $printmsg = "Your message was submitted...";
-            $textcolor = "rgb(255, 189, 57)";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+
+        $title = 'Invalid Email';
+        $message = 'Please enter a valid email address.';
+
+    } else {
+
+        try {
+
+            mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
+            // Database connection
+            $conn = new mysqli(
+                'sql201.infinityfree.com',
+                'if0_34618359',
+                'ntrK9gqNPVLRnu',
+                'if0_34618359_db_portfolio'
+            );
+
+            $conn->set_charset('utf8mb4');
+
+            // Insert message using prepared statement
+            $sql = "INSERT INTO tb_message
+                    (u_name, u_email, u_subject, u_message)
+                    VALUES (?, ?, ?, ?)";
+
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ssss", $name, $email, $subject, $msg);
+
+            $stmt->execute();
+
+            $status = 'success';
+            $title = 'Message Sent Successfully!';
+            $message = 'Thank you for contacting me. Your message has been received. I will get back to you as soon as possible.';
+
+            $stmt->close();
+            $conn->close();
+
+        } catch (Throwable $e) {
+
+            error_log('Contact form error: ' . $e->getMessage());
+
+            $title = 'Message Not Sent';
+            $message = 'Unable to submit your message at the moment. Please try again later.';
         }
-        else{
-            $printmsg = "Something went wrong... Your message was not submitted...";
-            $textcolor = "red";
-        }
-
-        mysqli_close($conn);
     }
-    
 
-    
+} else {
 
+    $title = 'Invalid Request';
+    $message = 'Please submit your message through the contact form.';
+}
+
+$title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
+$message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Thank You!</title>
-  <link rel="icon" type="image/x-icon" href="images/icon.ico">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-            
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title><?php echo $title; ?> | Dineth Weerasinghe</title>
+
+    <link rel="icon" href="images/icon.ico">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+          rel="stylesheet">
+
+    <style>
+        body {
+            min-height: 100vh;
+            background: #080808;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .message-card {
+            max-width: 550px;
+            width: 100%;
+            background: #141414;
+            padding: 50px 35px;
+            border-radius: 18px;
+            border: 1px solid #292929;
+            text-align: center;
+            box-shadow: 0 15px 50px rgba(0,0,0,.4);
+        }
+
+        .message-icon {
+            font-size: 75px;
+            margin-bottom: 20px;
+        }
+
+        .success .message-icon,
+        .success h2 {
+            color: #ffbd39;
+        }
+
+        .error .message-icon,
+        .error h2 {
+            color: #ff5c5c;
+        }
+
+        h2 {
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #b5b5b5;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .btn-home {
+            display: inline-block;
+            padding: 13px 28px;
+            background: #ffbd39;
+            color: #111;
+            text-decoration: none;
+            border-radius: 7px;
+            font-weight: 600;
+        }
+
+        .btn-home:hover {
+            background: white;
+            color: #111;
+        }
+
+        .footer {
+            margin-top: 35px;
+            font-size: 13px;
+            color: #777;
+        }
+
+        .footer span {
+            color: #ffbd39;
+        }
+    </style>
 </head>
 
+<body>
 
-<body style="background-color:black;">
+    <div class="message-card <?php echo $status; ?>">
 
-    <div class="container mt-5">
-
-        <div class="mt-7" style="padding: 40px; text-align: center;">
-            <h1 style="color: white;" > Thank You! </h1>
-        </div>
-        <div class="mt-5" style="padding: 5px; text-align: center; color: <?php echo $textcolor ?>">
-            <h4> <?php echo $printmsg ?> </h4>
+        <div class="message-icon">
+            <i class="bi <?php echo $status === 'success'
+                ? 'bi-check-circle-fill'
+                : 'bi-exclamation-circle-fill'; ?>"></i>
         </div>
 
-        <div class="mt-5" style="padding: 5px; text-align: center">
-            <button type="button" class="btn btn-success" style="background-color:rgb(255, 189, 57); color:black;" onclick="location.href='index.php';"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
-            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
-            </svg> Go Back </button>
+        <h2><?php echo $title; ?></h2>
+
+        <p><?php echo $message; ?></p>
+
+        <a href="index.php" class="btn-home">
+            <i class="bi bi-arrow-left"></i>
+            Back to Portfolio
+        </a>
+
+        <div class="footer">
+            Designed & Developed by
+            <span>Dineth Weerasinghe</span>
         </div>
 
     </div>
 
-    
-    
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-
 </body>
 </html>
-
-
